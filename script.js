@@ -1,60 +1,41 @@
-/* ---------------------------------------------
-   DARK MODE TOGGLE
---------------------------------------------- */
-const toggleBtn = document.getElementById("toggleMode");
-
-toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-
-  toggleBtn.textContent = document.body.classList.contains("dark-mode")
-    ? "Light Mode"
-    : "Dark Mode";
+// Dark / Light Arcade Mode
+const toggleMode = document.getElementById('toggleMode');
+const body = document.body;
+if(localStorage.getItem('arcadeMode') === 'light') body.classList.add('light-mode'), toggleMode.textContent='Dark Mode';
+else toggleMode.textContent='Light Mode';
+toggleMode.addEventListener('click', ()=>{
+  const isLight = body.classList.toggle('light-mode');
+  toggleMode.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+  localStorage.setItem('arcadeMode', isLight ? 'light' : 'dark');
 });
 
-/* ---------------------------------------------
-   SMOOTH FADE-UP ANIMATIONS
---------------------------------------------- */
-const fadeElements = document.querySelectorAll(".fade-up");
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e=>{
+  const href = a.getAttribute('href');
+  if(href.startsWith('#')){ e.preventDefault(); document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'}); }
+}));
 
-const fadeObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("show");
-    });
-  },
-  { threshold: 0.2 }
-);
+// Fade-up animation
+const faders = document.querySelectorAll('.fade-up');
+const io = new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('show'); io.unobserve(en.target);}});},{threshold:0.18});
+faders.forEach(f=>io.observe(f));
 
-fadeElements.forEach((el) => fadeObserver.observe(el));
+// Back to top
+const back = document.getElementById('backToTop');
+window.addEventListener('scroll', ()=>{back.style.display = window.scrollY > 360 ? 'flex' : 'none';});
+back.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
 
-/* ---------------------------------------------
-   BACK TO TOP BUTTON
---------------------------------------------- */
-const backToTopBtn = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-  backToTopBtn.style.display = window.scrollY > 300 ? "flex" : "none";
-});
-
-backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-/* ---------------------------------------------
-   MOBILE HAMBURGER MENU
---------------------------------------------- */
-const hamburger = document.getElementById("hamburger");
-const nav = document.querySelector("header nav");
-
-hamburger.addEventListener("click", () => {
-  nav.classList.toggle("active");
-  hamburger.classList.toggle("open");
-});
-
-/* Optional animation for hamburger icon */
-hamburger.addEventListener("click", () => {
-  const bars = hamburger.querySelectorAll("div");
-  bars[0].classList.toggle("rotate-down");
-  bars[1].classList.toggle("hide");
-  bars[2].classList.toggle("rotate-up");
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('mainNav');
+hamburger.addEventListener('click', ()=>{
+  nav.style.display = nav.style.display==='flex' ? 'none':'flex';
+  nav.style.flexDirection='column';
+  nav.style.position='absolute';
+  nav.style.top='76px';
+  nav.style.right='22px';
+  nav.style.background='var(--card)';
+  nav.style.padding='12px';
+  nav.style.borderRadius='10px';
+  nav.style.boxShadow='var(--glow)';
 });
