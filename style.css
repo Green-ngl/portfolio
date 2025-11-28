@@ -1,41 +1,40 @@
-
 /* ---------- ROOT VARIABLES ---------- */
 :root {
   --bg: #ffffff;
   --text: #222;
-  --accent: #0077ff;
-  --card-bg: #f7f7f7;
-  --header-bg: #eaeaea;
+  --accent: #00aa44;  /* MAIN GREEN */
+  --card-bg: #f1fff1;
+  --header-bg: #e9ffe9;
   --pixel-font: 'Press Start 2P', cursive;
 
   --transition: 0.35s ease;
 }
 
-/* Morning Theme */
+/* Morning Green Theme */
 html[data-theme="morning"] {
-  --bg: #fff7e6;
-  --text: #333;
-  --accent: #ff9900;
-  --card-bg: #ffecc2;
-  --header-bg: #ffe1a8;
+  --bg: #f5fff3;           /* soft mint */
+  --text: #224422;
+  --accent: #44c767;       /* gentle green */
+  --card-bg: #e3ffe7;
+  --header-bg: #d5ffd7;
 }
 
-/* Night Theme */
+/* Night Green Theme */
 html[data-theme="night"] {
-  --bg: #0d0d0d;
-  --text: #f2f2f2;
-  --accent: #66ccff;
-  --card-bg: #1a1a1a;
-  --header-bg: #111;
+  --bg: #0a1a0a;           /* deep forest */
+  --text: #e6ffe6;
+  --accent: #00ff77;       /* glowing neon green */
+  --card-bg: #112411;
+  --header-bg: #0c160c;
 }
 
-/* Retro Pixel Theme */
+/* Retro Pixel Green Theme */
 html[data-theme="retro"] {
-  --bg: #c0ffc5;
-  --text: #1b1b1b;
-  --accent: #ff0040;
-  --card-bg: #97ff9f;
-  --header-bg: #7cff96;
+  --bg: #9efc9e;           /* Gameboy inspired */
+  --text: #0c2f0c;
+  --accent: #008f2a;       /* deep pixel green */
+  --card-bg: #72f272;
+  --header-bg: #5ce85c;
 }
 
 /* ---------- GLOBAL ---------- */
@@ -61,7 +60,7 @@ h1, h2, h3 {
   background: var(--header-bg);
   padding: 1.2rem 2rem;
   border-bottom: 4px solid var(--accent);
-  transition: background var(--transition);
+  transition: background var(--transition), border var(--transition);
 }
 
 .logo {
@@ -123,7 +122,7 @@ h1, h2, h3 {
   padding: 1.5rem;
   border-radius: 10px;
   border: 3px solid var(--accent);
-  transition: transform 0.25s, background var(--transition);
+  transition: transform 0.25s, background var(--transition), border var(--transition);
 }
 
 .card:hover {
