@@ -3,404 +3,310 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Portfolio - Anthon Miguel Ponce</title>
+<title>Portfolio - Anthon Miguel Ponce (Arcade)</title>
 <style>
-/* ------------------ BASE ------------------ */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap');
 
-/* Retro Arcade Theme */
-:root {
-  --bg: #0d0d0d;
-  --text: #33ff99;
-  --card: #1a1a1a;
-  --gray: #111;
-  --primary: #ff00ff;
-  --shadow: rgba(255,0,255,0.25);
+/* ------------------ ARCADE THEME VARIABLES ------------------ */
+:root{
+  --bg:#07070a;              /* deep space */
+  --card:#0d0d14;            /* panel */
+  --text:#33ff99;            /* neon green */
+  --accent:#ff33cc;          /* neon magenta */
+  --accent-2:#00e6ff;       /* neon cyan */
+  --muted:#9aa3a6;           /* secondary text */
+  --glow: 0 0 8px var(--accent), 0 0 20px var(--accent-2, #00e6ff);
   --scanline: repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.05) 0px,
-      rgba(255,255,255,0.05) 1px,
-      transparent 1px,
-      transparent 3px
+    to bottom,
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
   );
 }
 
-.dark-mode {
-  --bg: #000;
-  --text: #33ff99;
-  --card: #0a0a0a;
-  --gray: #0d0d0d;
-  --primary: #00eaff;
-  --shadow: rgba(0,255,255,0.2);
-  --scanline: repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.04) 0px,
-      rgba(255,255,255,0.04) 1px,
-      transparent 1px,
-      transparent 3px
-  );
+/* light-mode arcade variant */
+body.light-mode{
+  --bg:#f6f3ff;
+  --card:#fff1ff;
+  --text:#002b2b;
+  --accent:#ff0066;
+  --accent-2:#0066ff;
+  --muted:#444;
+  --glow: 0 0 8px var(--accent), 0 0 18px var(--accent-2);
 }
 
-body {
-  font-family: 'Press Start 2P', monospace;
-  background: var(--bg);
-  color: var(--text);
-  background-image: var(--scanline);
-  image-rendering: pixelated;
-  letter-spacing: 1px;
-  transition: 0.4s;
-}
-:root {
-  --bg: #f8f8f8;
-  --text: #222;
-  --card: #ffffff;
-  --gray: #f2f2f2;
-  --primary: #007bff;
-  --shadow: rgba(0,0,0,0.08);
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.02) 0%, transparent 40%), var(--bg);
+  color:var(--text);
+  font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, 'Press Start 2P', monospace;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background-image: var(--scanline), radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, transparent 60%);
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
-.dark-mode {
-  --bg: #111;
-  --text: #e6e6e6;
-  --card: #1a1a1a;
-  --gray: #222;
-  --primary: #4da3ff;
-  --shadow: rgba(255,255,255,0.08);
+/* CRT vignette */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+  mix-blend-mode: multiply;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  scroll-behavior: smooth;
-  transition: 0.3s;
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* HEADER */
+header{
+  position:fixed;top:16px;left:0;right:0;margin:0 auto;max-width:1100px;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:8px;backdrop-filter: blur(4px);
+  box-shadow: var(--glow);
+  z-index:1000
+}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .logo{width:46px;height:46px;border-radius:8px;background:linear-gradient(45deg,var(--accent),var(--accent-2));box-shadow:var(--glow);display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:10px}
+.brand h1{font-family:'Press Start 2P';font-size:12px;margin:0}
+
+nav{display:flex;gap:18px;align-items:center}
+nav a{color:var(--text);text-decoration:none;font-weight:600;font-size:11px;padding:6px 10px;border-radius:6px;transition:0.18s;}
+nav a:hover{color:#fff;text-shadow:var(--glow);transform:translateY(-2px)}
+
+/* hamburger */
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+.hamburger span{width:26px;height:3px;background:var(--text);display:block;border-radius:2px;box-shadow:0 0 6px rgba(0,0,0,0.6)}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;padding:110px 20px 60px;align-items:center}
+.hero-card{background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.02));padding:28px;border-radius:12px;box-shadow:var(--glow);border:2px solid rgba(255,255,255,0.02)}
+.hero h2{font-family:'Press Start 2P';font-size:20px;margin:0 0 14px}
+.hero p{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 18px}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;font-weight:700;text-decoration:none;font-size:12px;letter-spacing:0.6px}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:var(--glow);border:1px solid rgba(255,255,255,0.06)}
+.btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.06);color:var(--text)}
+
+/* hero image as photo with retro frame */
+.hero-photo{width:100%;height:320px;border-radius:8px;overflow:hidden;position:relative;border:6px solid #000;box-shadow:0 8px 18px rgba(0,0,0,0.6), var(--glow)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.05)}
+.hero-photo .frame{position:absolute;inset:6px;border:2px solid rgba(255,255,255,0.03);pointer-events:none}
+
+/* SECTIONS */
+section{padding:64px 0}
+h2.section-title{font-family:'Press Start 2P';font-size:16px;margin:0 0 14px;color:var(--accent)}
+p.lead{max-width:760px;margin:0 auto;color:var(--muted)}
+
+/* GRID */
+.grid{display:grid;gap:18px}
+.skills-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.projects-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+/* SKILL CARD */
+.card{background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.02));padding:18px;border-radius:10px;border:2px solid rgba(255,255,255,0.02);box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+.card .title{font-family:'Press Start 2P';font-size:11px;color:var(--accent)}
+.card p{font-size:12px;color:var(--muted)}
+
+/* PROJECT CARD retro */
+.project{position:relative;overflow:hidden;border-radius:10px;background:#000;padding:12px;border:2px solid rgba(255,255,255,0.03);box-shadow:var(--glow)}
+.project .project-img{width:100%;height:160px;object-fit:cover;display:block;border-radius:6px;border:4px solid #050508}
+.project h3{font-family:'Press Start 2P';font-size:12px;margin:10px 0 6px}
+.project .meta{font-size:11px;color:var(--muted)}
+.project .project-link{display:inline-block;margin-top:10px;padding:8px 10px;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;text-decoration:none;font-size:11px;box-shadow:var(--glow)}
+
+/* floating pixel decorations */
+.pixel-deco{position:absolute;width:8px;height:8px;background:var(--accent);box-shadow:0 0 8px var(--accent);border-radius:2px}
+
+/* back-to-top */
+#backToTop{position:fixed;right:20px;bottom:22px;width:46px;height:46px;border-radius:10px;display:none;align-items:center;justify-content:center;background:var(--accent);color:#000;font-weight:700;box-shadow:var(--glow);cursor:pointer;border:3px solid rgba(255,255,255,0.06)}
+
+/* fade-up animation */
+.fade-up{opacity:0;transform:translateY(12px);transition:opacity 700ms ease, transform 700ms ease}
+.fade-up.show{opacity:1;transform:none}
+
+/* subtle scanline over cards */
+.card::after,.project::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:var(--scanline);opacity:0.08}
+
+/* typography polish */
+.lead, .muted{letter-spacing:0.6px}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr;}
+  .hero-photo{height:260px}
+  nav{display:none}
+  .hamburger{display:flex}
 }
 
-/* ------------------ HEADER ------------------ */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: var(--card);
-  box-shadow: 0 0 12px var(--primary);
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transition: 0.3s;
-}
-
-header nav a {
-  margin-left: 22px;
-  text-decoration: none;
-  font-weight: bold;
-  color: var(--text);
-  transition: 0.3s;
-}
-header nav a:hover { color: var(--primary); }
-
-/* DARK MODE TOGGLE */
-#toggleMode {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 2px solid var(--primary);
-  background: transparent;
-  color: var(--primary);
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-#toggleMode:hover {
-  background: var(--primary);
-  color: #fff;
-}
-
-/* ------------------ HERO ------------------ */
-.hero {
-  padding: 140px 40px 80px;
-  background: var(--card);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  align-items: center;
-  transition: 0.3s;
-}
-
-.hero h1 { font-size: 44px; margin-bottom: 15px; }
-.hero p { margin-bottom: 25px; line-height: 1.6; }
-.highlight { color: var(--primary); font-weight: bold; }
-
-.hero-img {
-  width: 100%;
-  height: 260px;
-  background: #ccc;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px var(--shadow);
-}
-
-/* ------------------ BUTTONS ------------------ */
-.btn {
-  padding: 12px 28px;
-  border-radius: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: 0.3s;
-}
-.primary { background: var(--primary); color: white; }
-.primary:hover { background: #0067d6; }
-.outline { border: 2px solid var(--primary); color: var(--primary); }
-.outline:hover { background: rgba(0,123,255,0.1); }
-
-/* ------------------ SECTIONS ------------------ */
-section { padding: 90px 40px; text-align: center; }
-h2 { font-size: 34px; margin-bottom: 15px; }
-p { max-width: 760px; margin: auto; line-height: 1.65; }
-.gray-section { background: var(--gray); }
-
-/* ------------------ SKILLS ------------------ */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 25px;
-  margin-top: 45px;
-}
-.skill {
-  background: var(--card);
-  padding: 22px;
-  border-radius: 14px;
-  box-shadow: 0 4px 10px var(--shadow);
-  font-weight: bold;
-  transition: 0.3s;
-}
-.skill:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 14px var(--shadow);
-}
-
-/* ------------------ PROJECTS ------------------ */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin-top: 45px;
-}
-.project {
-  background: var(--card);
-  padding: 22px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px var(--shadow);
-  text-align: left;
-  transition: 0.3s;
-}
-.project:hover { transform: translateY(-5px); }
-.project-img {
-  width: 100%;
-  height: 170px;
-  background: #aaa;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-.project-link { color: var(--primary); font-weight: bold; }
-.project-link:hover { text-decoration: underline; }
-
-/* ------------------ CONTACT ------------------ */
-.contact-icons a {
-  margin: 0 10px;
-  font-size: 20px;
-  color: var(--text);
-  transition: 0.3s;
-}
-.contact-icons a:hover { color: var(--primary); }
-
-/* ------------------ FOOTER ------------------ */
-footer {
-  padding: 22px;
-  background: var(--gray);
-  text-align: center;
-  font-size: 14px;
-}
-
-/* ------------------ RESPONSIVE ------------------ */
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; text-align: center; }
-  .hero-img { height: 220px; }
-}
-
-/* ------------------ ANIMATIONS ------------------ */
-.fade-up { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
-.fade-up.show { opacity: 1; transform: translateY(0); }
-
-/* Back to Top Button */
-#backToTop {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: #fff;
-  font-size: 20px;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 0 12px var(--primary);
-  transition: 0.3s;
-  z-index: 999;
-}
-#backToTop:hover { transform: scale(1.1); }
-
-/* Mobile Navbar */
-.hamburger {
-  display: none;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px;
-}
-.hamburger div {
-  width: 25px;
-  height: 3px;
-  background: var(--text);
-  transition: 0.3s;
-}
-
-@media (max-width: 800px) {
-  nav { display: none; }
-  .hamburger { display: flex; }
-  nav.active {
-    display: block;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: var(--card);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 12px var(--primary);
-  }
-  nav a { display: block; margin: 15px 0; }
+@media(max-width:520px){
+  header{left:10px;right:10px}
+  .brand h1{font-size:10px}
 }
 
 </style>
 </head>
-<body>
+<body class="">
 
-<header>
-  <div class="hamburger" id="hamburger">
-    <div></div><div></div><div></div>
+<header class="container">
+  <div class="brand">
+    <div class="logo">AMP</div>
+    <h1>Anthon Miguel Ponce</h1>
   </div>
-  <h2>Anthon</h2>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+
+  <nav id="mainNav">
+    <a href="#about">ABOUT</a>
+    <a href="#skills">SKILLS</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#contact">CONTACT</a>
   </nav>
-  <button id="toggleMode">Dark Mode</button>
+
+  <div style="display:flex;align-items:center;gap:10px">
+    <button id="toggleMode" class="btn ghost">Light Mode</button>
+    <div class="hamburger" id="hamburger" aria-label="menu" title="menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
 </header>
 
-<section class="hero" id="about">
-  <div>
-    <h1>Hello, I'm <span class="highlight">Anthon Miguel Ponce</span></h1>
-    <p>BSIS student passionate about technology, development, and creating clean user experiences.</p>
-    <a href="#projects" class="btn primary">View Projects</a>
-  </div>
-  <div class="hero-img" style="background:url('https://i.ibb.co/3fg7wQZ/your-photo.jpg') center/cover no-repeat;"></div>
-</section>
-
-<section id="skills">
-  <h2>Skills</h2>
-  <p>Technologies I use and continue to grow in every day.</p>
-  <div class="skills-grid">
-    <div class="skill">HTML</div>
-    <div class="skill">CSS</div>
-    <div class="skill">JavaScript</div>
-    <div class="skill">Python</div>
-  </div>
-</section>
-
-<section class="gray-section" id="projects">
-  <h2>Projects</h2>
-  <p>Here are some works I’ve created and contributed to.</p>
-  <div class="projects-grid fade-up">
-    <div class="project">
-      <img class="project-img" src="https://i.ibb.co/2tQZfdH/project1.jpg" />
-      <h3>Student Management System</h3>
-      <a href="#" class="project-link">View Project →</a>
+<main class="container">
+  <section id="about" class="hero">
+    <div class="hero-card fade-up">
+      <h2>Hello, I'm <span style="color:var(--accent)">Anthon</span></h2>
+      <p class="lead">BSIS student passionate about building clean, pixel-perfect user experiences. I enjoy full-stack projects, automation, and anything with retro vibes.</p>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#projects" class="btn primary">VIEW PROJECTS</a>
+        <a href="#contact" class="btn ghost">CONTACT</a>
+      </div>
     </div>
-    <div class="project">
-      <img class="project-img" src="https://i.ibb.co/yVrkX6D/project2.jpg" />
-      <h3>Personal Portfolio</h3>
-      <a href="#" class="project-link">View Project →</a>
-    </div>
-    <div class="project">
-      <img class="project-img" src="https://i.ibb.co/3RFdXSV/project3.jpg" />
-      <h3>Inventory System</h3>
-      <a href="#" class="project-link">View Project →</a>
-    </div>
-    <div class="project">
-      <div class="project-img"></div>
-      <h3>Sample Project</h3>
-      <a href="#" class="project-link">View Project →</a>
-    </div>
-  </div>
-</section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="contact-icons">
-    <a href="#">FB</a>
-    <a href="#">IG</a>
-    <a href="#">Email</a>
-  </div>
-</section>
+    <div class="hero-photo fade-up">
+      <img src="https://i.ibb.co/3fg7wQZ/your-photo.jpg" alt="Anthon photo" />
+      <div class="frame"></div>
+      <!-- pixel deco -->
+      <div class="pixel-deco" style="top:8px;left:8px"></div>
+      <div class="pixel-deco" style="bottom:10px;right:12px;background:var(--accent-2)"></div>
+    </div>
+  </section>
 
-<footer>© 2025 Anthon Miguel Ponce · BSIS Student</footer>
+  <section id="skills">
+    <h2 class="section-title">SKILLS</h2>
+    <p class="lead">Technologies and tools I use daily.</p>
+    <div class="grid skills-grid" style="margin-top:18px">
+      <div class="card fade-up"><div class="title">HTML</div><p>Semantic markup & accessibility</p></div>
+      <div class="card fade-up"><div class="title">CSS</div><p>Layouts, animations, & themes</p></div>
+      <div class="card fade-up"><div class="title">JavaScript</div><p>Interactive front-ends</p></div>
+      <div class="card fade-up"><div class="title">Python</div><p>Scripting & data processing</p></div>
+    </div>
+  </section>
+
+  <section id="projects" class="">
+    <h2 class="section-title">PROJECTS</h2>
+    <p class="lead">A selection of projects with real screenshots.</p>
+
+    <div class="grid projects-grid" style="margin-top:18px">
+      <article class="project fade-up">
+        <img class="project-img" src="https://i.ibb.co/2tQZfdH/project1.jpg" alt="Project 1"/>
+        <h3>Student Management System</h3>
+        <div class="meta">HTML · JS · PHP</div>
+        <a class="project-link" href="#">View Project →</a>
+      </article>
+
+      <article class="project fade-up">
+        <img class="project-img" src="https://i.ibb.co/yVrkX6D/project2.jpg" alt="Project 2"/>
+        <h3>Personal Portfolio</h3>
+        <div class="meta">HTML · CSS · JS</div>
+        <a class="project-link" href="#">View Project →</a>
+      </article>
+
+      <article class="project fade-up">
+        <img class="project-img" src="https://i.ibb.co/3RFdXSV/project3.jpg" alt="Project 3"/>
+        <h3>Inventory System</h3>
+        <div class="meta">Python · Flask · SQL</div>
+        <a class="project-link" href="#">View Project →</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">CONTACT</h2>
+    <p class="lead">Reach out — I’m open to collaborations and freelance work.</p>
+    <div style="display:flex;justify-content:center;gap:12px;margin-top:14px">
+      <a class="btn ghost" href="#">Facebook</a>
+      <a class="btn ghost" href="#">Instagram</a>
+      <a class="btn ghost" href="#">Email</a>
+    </div>
+  </section>
+</main>
+
+<footer style="padding:30px 0;text-align:center;color:var(--muted);">© 2025 Anthon Miguel Ponce · BSIS Student</footer>
+
+<!-- back to top -->
+<div id="backToTop">▲</div>
 
 <script>
-// DARK MODE SCRIPT
-const toggleBtn = document.getElementById('toggleMode');
+// --- DOM helpers ---
+const qs = s => document.querySelector(s);
+const qsa = s => document.querySelectorAll(s);
 
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  toggleBtn.textContent = document.body.classList.contains('dark-mode')
-    ? 'Light Mode'
-    : 'Dark Mode';
+// Dark / Light Arcade Mode
+const toggleMode = qs('#toggleMode');
+const body = document.body;
+// remember preference
+if(localStorage.getItem('arcadeMode') === 'light') body.classList.add('light-mode'), toggleMode.textContent = 'Dark Mode';
+else toggleMode.textContent = 'Light Mode';
+
+toggleMode.addEventListener('click', ()=>{
+  const isLight = body.classList.toggle('light-mode');
+  toggleMode.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+  localStorage.setItem('arcadeMode', isLight ? 'light' : 'dark');
 });
+
+// Smooth scroll for internal links
+qsa('a[href^="#"]').forEach(a=> a.addEventListener('click', e=>{
+  const href = a.getAttribute('href');
+  if(href.startsWith('#')){
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}));
+
+// Fade-up on scroll
+const faders = qsa('.fade-up');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); }
+  });
+},{threshold:0.18});
+faders.forEach(f=>io.observe(f));
+
+// Back to top button
+const back = qs('#backToTop');
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY > 360) { back.style.display = 'flex'; back.classList.add('show'); }
+  else back.style.display = 'none';
+});
+back.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+// Mobile hamburger toggle
+const hamburger = qs('#hamburger');
+const nav = qs('#mainNav');
+hamburger.addEventListener('click', ()=>{
+  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+  nav.style.flexDirection = 'column';
+  nav.style.position = 'absolute';
+  nav.style.top = '76px';
+  nav.style.right = '22px';
+  nav.style.background = 'var(--card)';
+  nav.style.padding = '12px';
+  nav.style.borderRadius = '10px';
+  nav.style.boxShadow = 'var(--glow)';
+});
+
+// make sure project images are crisp on pixel font (no smoothing)
+qsa('img').forEach(img => img.style.imageRendering = 'pixelated');
+
 </script>
-
-<!-- Back to Top Button -->
-<div id="backToTop">↑</div>
-
-<script>
-// Dark Mode
-const toggleBtn = document.getElementById('toggleMode');
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  toggleBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-});
-
-// Smooth Scroll Animations
-const faders = document.querySelectorAll('.fade-up');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
-},{ threshold: 0.2 });
-faders.forEach(f => observer.observe(f));
-
-// Back to Top Button
-const topBtn = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-  topBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
-});
-topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-
-// Mobile Menu
-const hamburger = document.getElementById('hamburger');
-const nav = document.querySelector('header nav');
-hamburger.addEventListener('click', () => { nav.classList.toggle('active'); });
-</script>
-
 </body>
 </html>
