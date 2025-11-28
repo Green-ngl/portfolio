@@ -1,231 +1,41 @@
-/* =========================================
-   Portfolio Full CSS - Light & Dark Mode
-========================================= */
+// Dark / Light Arcade Mode
+const toggleMode = document.getElementById('toggleMode');
+const body = document.body;
+if(localStorage.getItem('arcadeMode') === 'light') body.classList.add('light-mode'), toggleMode.textContent='Dark Mode';
+else toggleMode.textContent='Light Mode';
+toggleMode.addEventListener('click', ()=>{
+  const isLight = body.classList.toggle('light-mode');
+  toggleMode.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+  localStorage.setItem('arcadeMode', isLight ? 'light' : 'dark');
+});
 
-/* ==========================
-   BASE VARIABLES
-=========================== */
-:root {
-    --transition-speed: 0.3s;
-    --font-primary: 'Rubik', sans-serif;
-    --font-retro: 'Press Start 2P', monospace;
-}
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e=>{
+  const href = a.getAttribute('href');
+  if(href.startsWith('#')){ e.preventDefault(); document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'}); }
+}));
 
-/* ==========================
-   LIGHT MODE VARIABLES
-=========================== */
-body.light-mode {
-    /* Backgrounds */
-    --bg-primary: #F5F5F5;
-    --bg-secondary: #FFFFFF;
-    --bg-tertiary: #E0E0E0;
+// Fade-up animation
+const faders = document.querySelectorAll('.fade-up');
+const io = new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('show'); io.unobserve(en.target);}});},{threshold:0.18});
+faders.forEach(f=>io.observe(f));
 
-    /* Text */
-    --text-primary: #1E1E1E;
-    --text-secondary: #555555;
-    --heading: #0D3B66;
-    --link: #0066FF;
-    --link-hover: #00B4D8;
+// Back to top
+const back = document.getElementById('backToTop');
+window.addEventListener('scroll', ()=>{back.style.display = window.scrollY > 360 ? 'flex' : 'none';});
+back.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
 
-    /* Buttons */
-    --accent: #00B4D8;
-    --accent-2: #0077B6;
-    --btn-ghost: #00B4D8;
-
-    /* Cards / Borders */
-    --card-bg: #FFFFFF;
-    --card-border: #E0E0E0;
-}
-
-/* ==========================
-   DARK MODE VARIABLES
-=========================== */
-body.dark-mode {
-    /* Backgrounds */
-    --bg-primary: #121212;
-    --bg-secondary: #1E1E1E;
-    --bg-tertiary: #333333;
-
-    /* Text */
-    --text-primary: #E0E0E0;
-    --text-secondary: #AAAAAA;
-    --heading: #4DA8DA;
-    --link: #80CFFF;
-    --link-hover: #00D9FF;
-
-    /* Buttons */
-    --accent: #00B4A0;
-    --accent-2: #2EC4CC;
-    --btn-ghost: #2EC4B6;
-
-    /* Cards / Borders */
-    --card-bg: #1E1E1E;
-    --card-border: #333333;
-}
-
-/* ==========================
-   GLOBAL STYLES
-=========================== */
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--font-primary);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-    margin: 0;
-    padding: 0;
-}
-
-a {
-    color: var(--link);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-a:hover {
-    color: var(--link-hover);
-}
-
-/* ==========================
-   HEADINGS
-=========================== */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--heading);
-    margin: 0 0 12px 0;
-}
-
-/* ==========================
-   PARAGRAPHS / TEXT
-=========================== */
-p, span, li {
-    color: var(--text-primary);
-    line-height: 1.6;
-    margin: 0 0 12px 0;
-}
-
-small, .muted {
-    color: var(--text-secondary);
-}
-
-/* ==========================
-   BUTTONS
-=========================== */
-.btn {
-    cursor: pointer;
-    font-family: var(--font-retro);
-    font-weight: 700;
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: all var(--transition-speed);
-}
-
-/* Primary Buttons */
-.btn.primary {
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    color: #fff;
-    border: none;
-    text-shadow: 0 0 6px rgba(0,0,0,0.3);
-}
-.btn.primary:hover {
-    opacity: 0.9;
-}
-
-/* Ghost Buttons */
-.btn.ghost {
-    color: var(--btn-ghost);
-    border: 1px dashed rgba(255,255,255,0.2);
-    background: transparent;
-}
-.btn.ghost:hover {
-    color: var(--accent-2);
-}
-
-/* ==========================
-   HERO SECTION
-=========================== */
-.hero-card {
-    background: var(--bg-secondary);
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    text-align: center;
-    margin: 20px auto;
-    max-width: 800px;
-}
-
-.hero-card h2 {
-    font-family: var(--font-retro);
-    font-size: 20px;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    color: var(--heading);
-}
-
-.hero-card p {
-    font-family: var(--font-primary);
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 18px;
-    color: var(--text-primary);
-}
-
-/* Buttons inside Hero */
-.hero-card .btn.primary {
-    font-size: 12px;
-    text-shadow: 0 0 6px rgba(255,255,255,0.5);
-}
-.hero-card .btn.ghost {
-    border: 1px dashed rgba(255,255,255,0.2);
-}
-
-/* ==========================
-   CARDS / PROJECT SECTIONS
-=========================== */
-.card, .project-card, .section-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    padding: 20px;
-    border-radius: 8px;
-    transition: all var(--transition-speed);
-    color: var(--text-primary);
-    margin: 16px 0;
-}
-
-.card h3 {
-    color: var(--heading);
-    margin-bottom: 8px;
-}
-
-.card p {
-    color: var(--text-secondary);
-}
-
-/* ==========================
-   NAVIGATION
-=========================== */
-nav {
-    background: var(--bg-secondary);
-    padding: 12px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--card-border);
-}
-
-nav a {
-    margin: 0 12px;
-    color: var(--link);
-}
-nav a:hover {
-    color: var(--link-hover);
-}
-
-/* ==========================
-   UTILITY CLASSES
-=========================== */
-.text-center { text-align: center; }
-.mb-12 { margin-bottom: 12px; }
-.mb-18 { margin-bottom: 18px; }
-.mt-20 { margin-top: 20px; }
-.rounded { border-radius: 12px; }
-.shadow { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-.transition { transition: all var(--transition-speed); }
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('mainNav');
+hamburger.addEventListener('click', ()=>{
+  nav.style.display = nav.style.display==='flex' ? 'none':'flex';
+  nav.style.flexDirection='column';
+  nav.style.position='absolute';
+  nav.style.top='76px';
+  nav.style.right='22px';
+  nav.style.background='var(--card)';
+  nav.style.padding='12px';
+  nav.style.borderRadius='10px';
+  nav.style.boxShadow='var(--glow)';
+});
