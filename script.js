@@ -1,15 +1,16 @@
+<script>
+// Simple fade animation for sections
+const sections = document.querySelectorAll("section");
 
-const buttons = document.querySelectorAll(".theme-btn");
-const savedTheme = localStorage.getItem("theme");
 
-if (savedTheme) {
-  document.documentElement.setAttribute("data-theme", savedTheme);
-}
-
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const theme = btn.getAttribute("data-theme");
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  });
+const reveal = () => {
+sections.forEach(sec => {
+const top = sec.getBoundingClientRect().top;
+if (top < window.innerHeight - 100) sec.style.opacity = 1;
 });
+};
+
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
