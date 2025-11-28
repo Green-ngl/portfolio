@@ -21,27 +21,56 @@ body.light-mode{
 
 *{box-sizing:border-box;}
 html,body{height:100%;}
-body{
-  margin:0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Rubik', system-ui, 'Press Start 2P', monospace;
-  background-image: var(--scanline);
-  transition: background 0.35s ease, color 0.35s ease;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
-  mix-blend-mode: multiply;
+/* Retro arcade background with neon gradient and scanlines */
+body {
+    margin: 0;
+    font-family: 'Rubik', system-ui, 'Press Start 2P', monospace;
+    color: var(--text);
+    background: #07070a; /* fallback dark background */
+    
+    /* Retro horizontal lines */
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255, 51, 204, 0.03) 0px,
+            rgba(255, 51, 204, 0.03) 1px,
+            rgba(0, 230, 255, 0.03) 1px,
+            rgba(0, 230, 255, 0.03) 3px
+        );
 }
 
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-header{
-  position:fixed;top:16px;left:0;right:0;margin:0 auto;max-width:1100px;display:flex;align-items:center;justify-content:space-between;
-  padding:12px 18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:8px;backdrop-filter: blur(4px);
-  box-shadow: var(--glow);
-  z-index:1000;
+    
+    transition: background 0.35s ease, color 0.35s ease;
+    position: relative;
+    height: 100%;
 }
+
+
+    /* Retro horizontal scanlines */
+    background-image: 
+        radial-gradient(circle at top left, rgba(255, 51, 204,0.05), rgba(0,0,0,0)),
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255, 51, 204,0.03) 0px,
+            rgba(255, 51, 204,0.03) 1px,
+            rgba(0, 230, 255,0.03) 1px,
+            rgba(0, 230, 255,0.03) 3px
+        );
+
+    background-blend-mode: overlay, normal;
+    transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* Optional: subtle vignette to focus on hero section */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
+    mix-blend-mode: multiply;
+}
+
 .brand{display:flex;align-items:center;gap:14px;}
 .brand .logo{width:46px;height:46px;border-radius:8px;background:linear-gradient(45deg,var(--accent),var(--accent-2));box-shadow:var(--glow);display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:10px;}
 .brand h1{font-family:'Press Start 2P';font-size:12px;margin:0;}
@@ -52,12 +81,54 @@ nav a:hover{color:#fff;text-shadow:var(--glow);transform:translateY(-2px);}
 .hamburger span{width:26px;height:3px;background:var(--text);display:block;border-radius:2px;box-shadow:0 0 6px rgba(0,0,0,0.6);}
 
 .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;padding:110px 20px 60px;align-items:center;}
-.hero-card{background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.02));padding:28px;border-radius:12px;box-shadow:var(--glow);border:2px solid rgba(255,255,255,0.02);}
-.hero h2{font-family:'Press Start 2P';font-size:20px;margin:0 0 14px;}
-.hero p{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 18px;}
-.btn{display:inline-block;padding:10px 16px;border-radius:8px;font-weight:700;text-decoration:none;font-size:12px;letter-spacing:0.6px;}
-.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:var(--glow);border:1px solid rgba(255,255,255,0.06);}
-.btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.06);color:var(--text);}
+/* Hero section typography */
+.hero-card h2 {
+    font-family: 'Press Start 2P', monospace; /* retro arcade font */
+    font-size: 20px;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+/* Paragraph text inside hero */
+.hero-card p {
+    font-family: 'Rubik', sans-serif; /* clean readable font */
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    color: var(--muted);
+}
+
+/* Buttons in hero */
+.hero-card .btn.primary {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-weight: 700;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    text-shadow: 0 0 6px rgba(255,255,255,0.5);
+}
+
+.hero-card .btn.ghost {
+    color: var(--accent);
+    border: 1px dashed rgba(255,255,255,0.2);
+}
+
+/* Light mode overrides */
+body.light-mode .hero-card h2 {
+    color: #ff0066; /* vibrant pink for light mode */
+}
+
+body.light-mode .hero-card p {
+    color: #002b2b; /* dark readable text */
+}
+
+body.light-mode .hero-card .btn.primary {
+    text-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+body.light-mode .hero-card .btn.ghost {
+    color: #0066ff; /* accent blue in light mode */
+}
 
 .hero-photo {
     width: 100%;
