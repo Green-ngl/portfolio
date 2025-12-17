@@ -75,7 +75,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
   z-index: 1000;
   padding: 20px 0;
@@ -157,6 +157,7 @@ nav a:hover::after {
 .mode-toggle:hover {
   background: var(--accent);
   border-color: var(--accent);
+  color: #fff;
   transform: rotate(180deg);
 }
 
@@ -616,6 +617,7 @@ section {
 .social-link-large:hover {
   background: var(--accent);
   border-color: var(--accent);
+  color: #fff;
   transform: translateX(10px);
 }
 
@@ -653,6 +655,7 @@ footer {
   box-shadow: 0 4px 15px var(--accent-glow);
   transition: var(--transition);
   z-index: 999;
+  font-size: 18px;
 }
 
 #backToTop:hover {
@@ -703,7 +706,21 @@ footer {
 
 @media (max-width: 768px) {
   nav {
-    display: none;
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: var(--bg);
+    flex-direction: column;
+    padding: 40px;
+    gap: 20px;
+    transition: var(--transition);
+    border-right: 1px solid var(--border);
+  }
+  
+  nav.show {
+    left: 0;
   }
   
   .hamburger {
@@ -731,5 +748,12 @@ footer {
   .skills-grid,
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+  
+  #backToTop {
+    right: 20px;
+    bottom: 20px;
+    width: 45px;
+    height: 45px;
   }
 }
