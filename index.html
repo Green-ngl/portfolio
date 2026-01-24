@@ -1,64 +1,102 @@
-<section id="experience" class="experience-section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Experience</h2>
-      <p class="section-description">Projects I've worked on</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anthon Miguel Ponce | Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Anthon Miguel Ponce, a BSIS student and Full-Stack Developer specializing in modern web solutions.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header id="header">
+    <div class="container header-wrapper">
+      <a href="#home" class="brand"><h1>Anthon<span>.</span></h1></a>
+
+      <nav id="mainNav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="toggleMode" class="mode-toggle" aria-label="Toggle dark/light mode">
+          <i class="fas fa-sun"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <div class="projects-grid">
+  <main>
+    <section id="home" class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-image-container">
+            <div class="hero-circle"></div>
+            <figure class="hero-image">
+              <img src="Photoprof.png" alt="Anthon Miguel Ponce Portrait" loading="eager">
+            </figure>
+          </div>
 
-      <div class="project-card fade-up">
-        <div class="project-image">
-          <img src="machine-portal.png" alt="Machine Portal Activities" />
-        </div>
-        <div class="project-content">
-          <h3>Machine Portal Activities</h3>
-          <p class="project-tech">HTML · CSS · JavaScript</p>
-          <a href="https://machine_portal.oneapp.dev" target="_blank" class="project-link">
-            View Project <i class="fas fa-arrow-right"></i>
-          </a>
+          <div class="hero-text">
+            <h1 class="hero-title">Hi, I'm <span class="highlight">Miguel</span></h1>
+            <h2 class="hero-subtitle">I build <span class="typing-text"></span></h2>
+            <p class="hero-description">
+              BSIS student at Malayan Colleges Mindanao. I specialize in building clean, modern, and high-performance web applications with a focus on user experience.
+            </p>
+
+            <div class="social-links">
+              <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="mailto:amPonce@mcm.edu.ph" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              <a href="https://www.facebook.com/sargepnc/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+
+            <a href="#contact" class="cta-button">Let's Talk</a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="project-card fade-up">
-        <div class="project-image">
-          <img src="Sensestroke.png" alt="StrokeSense" />
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Projects</h2>
+          <div class="section-line"></div>
         </div>
-        <div class="project-content">
-          <h3>StrokeSense</h3>
-          <p class="project-tech">Health AI · Web Application</p>
-          <a href="https://strokesense.oneapp.dev/" target="_blank" class="project-link">
-            View Project <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
+
+        <div class="projects-grid">
+          <article class="project-card fade-up">
+            <div class="project-image">
+              <img src="machine-portal.png" alt="Machine Portal UI">
+            </div>
+            <div class="project-content">
+              <h3>Machine Portal</h3>
+              <p class="project-tech">HTML5 • CSS3 • JavaScript</p>
+              <a href="https://machine_portal.oneapp.dev" target="_blank" class="project-link">Explore <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </article>
+          </div>
       </div>
+    </section>
+  </main>
 
-      <div class="project-card fade-up">
-        <div class="project-image">
-          <img src="myLogo.png" alt="Bambu Vibe Inventory System" />
-        </div>
-        <div class="project-content">
-          <h3>Bambu Vibe – Inventory System</h3>
-          <p class="project-tech">Java · Excel · Visual Studio</p>
-          <a href="https://github.com/pjmVillaraiz/Bambu-Vibe" target="_blank" class="project-link">
-            View Project <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-image">
-          <img src="khenzo logo.jpg" alt="KhenzoVan Agrivet Supply Trading" />
-        </div>
-        <div class="project-content">
-          <h3>KhenzoVan Agrivet Supply Trading</h3>
-          <p class="project-tech">PHP · MySQL · Bootstrap</p>
-          <a href="#" target="_blank" class="project-link">
-            View Project <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Anthon Miguel Ponce. Built with passion.</p>
     </div>
-  </div>
-</section>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="script.js"></script>
+</body>
+</html>
